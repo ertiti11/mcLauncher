@@ -1,0 +1,44 @@
+Inicio
+|
+|--- Obtener la versión deseada de Minecraft
+|       |
+|       |--- Obtener el manifiesto de versiones desde https://launchermeta.mojang.com/mc/game/version_manifest.json
+|       |
+|       |--- Analizar el manifiesto y obtener la URL de los datos de la versión
+|       |
+|       |--- Descargar los datos de la versión JSON desde la URL obtenida
+|       |
+|       |--- Obtener los argumentos de JVM y juego del JSON de datos de la versión
+|
+|--- Crear el directorio de trabajo de Minecraft
+|       |
+|       |--- Crear el directorio .minecraft
+|       |
+|       |--- Crear el directorio de la versión deseada dentro de .minecraft/versions
+|
+|--- Descargar los activos
+|       |
+|       |--- Obtener el índice de activos desde .minecraft/assets/indexes/<id>.json
+|       |
+|       |--- Descargar cada archivo de activo utilizando su URL y guardarlos en .minecraft/assets/objects/<first two letters of hash>/<whole hash>
+|
+|--- Descargar las bibliotecas
+|       |
+|       |--- Para cada biblioteca en el JSON de datos de la versión:
+|       |       |
+|       |       |--- Descargar la biblioteca principal (artifact) y guardarla en .minecraft/libraries/<library.downloads.artifact.path>
+|       |       |
+|       |       |--- Si hay nativos en la biblioteca:
+|       |       |       |
+|       |       |       |--- Obtener el clasificador necesario desde library["natives"][os]
+|       |       |       |
+|       |       |       |--- Descargar el JAR del clasificador y guardarlo en una ubicación temporal
+|       |       |       |
+|       |       |       |--- Descomprimir el JAR y extraer los nativos en .minecraft/versions/<version>/natives
+|
+|--- Ejecutar Minecraft
+        |
+        |--- Reemplazar las sustituciones en los argumentos de JVM y juego con los valores adecuados
+        |
+        |--- Ejecutar el comando "java -jar [JVM args] [main class] [game args]"
+Fin
